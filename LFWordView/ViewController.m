@@ -7,7 +7,8 @@
 //
 
 #import "ViewController.h"
-
+#import "LFAddWordController.h"
+#import "LFEditWordController.h"
 @interface ViewController ()
 
 @end
@@ -17,6 +18,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+}
+
+#pragma mark --- 新增
+- (IBAction)AddAction:(id)sender {
+    
+    LFAddWordController *AddVC = [[LFAddWordController alloc] init];
+    [self.navigationController pushViewController:AddVC animated:YES];
+}
+
+
+#pragma mark --- 继续编辑
+- (IBAction)continueEditAction:(id)sender {
+    LFEditWordController *editVC = [[LFEditWordController alloc] init];
+    [self.navigationController pushViewController:editVC animated:YES];
 }
 
 
