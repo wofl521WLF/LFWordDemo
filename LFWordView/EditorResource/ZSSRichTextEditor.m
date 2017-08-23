@@ -12,7 +12,8 @@
 #import "ZSSBarButtonItem.h"
 #import "HRColorUtil.h"
 #import "ZSSTextView.h"
-
+#import "YFSetFontView.h"
+#import "YFSetColorView.h"
 @import JavaScriptCore;
 
 
@@ -202,6 +203,12 @@ static Class hackishFixClass = Nil;
  */
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
 
+@property (nonatomic, assign) BOOL underLine;// 是否显示下划线
+@property (nonatomic, assign) BOOL bold;//是否显示加粗
+@property (nonatomic, strong) YFSetFontView *fontView;//字体选择view
+@property (nonatomic, strong) YFSetColorView *colorView;//颜色选择view
+@property (nonatomic, assign) CGFloat keyboardSpacingHeight;//获取键盘高度，便于处理颜色选择UI和字体选择UI
+
 /*
  *  Method for getting a version of the html without quotes
  */
@@ -234,6 +241,37 @@ static Class hackishFixClass = Nil;
 //Scale image from device
 static CGFloat kJPEGCompression = 0.8;
 static CGFloat kDefaultScale = 0.5;
+
+- (YFSetFontView *)fontView{
+    if (_fontView == nil) {
+        _fontView = [YFSetFontView getYSFontView];
+//        _fontView.textStyle = self.currentTextStyle;
+//        WS(weakSelf)
+//        _fontView.styleBlock = ^(LMTextStyle *style) {
+//            [weakSelf lm_didChangedTextStyle:style];
+//            [weakSelf.textView becomeFirstResponder];
+//            [weakSelf.fontView removeFromSuperview];
+//        };
+    }
+    return _fontView;
+}
+
+- (YFSetColorView *)colorView{
+    if (_colorView == nil) {
+        _colorView = [YFSetColorView getColorView];
+//        _colorView.textStyle = self.currentTextStyle;
+//        WS(weakSelf)
+//        _colorView.styleBlock = ^(LMTextStyle *style) {
+//            if (nil != style) {
+//                [weakSelf lm_didChangedTextStyle:style];
+//            }
+//            [weakSelf.textView becomeFirstResponder];
+//            [weakSelf.colorView removeFromSuperview];
+//        };
+    }
+    return _colorView;
+}
+
 
 #pragma mark - View Did Load Section
 - (void)viewDidLoad {
@@ -387,19 +425,57 @@ static CGFloat kDefaultScale = 0.5;
     switch (control.selectedSegmentIndex) {
         case 0:
         {
+            self.bold = !self.bold;
+            UIButton *btn = control.itemViews[0];
+            btn.selected = self.bold;
             [self setBold];
             break;
         }
         case 1:{
+             self.underLine = !self.underLine;
             [self setUnderline];
+            UIButton *btn = control.itemViews[1];
+            btn.selected = self.underLine;
         }
             break;
         case 2:{
-           
+            for(UIView*window in [UIApplication sharedApplication].windows)
+            {
+                if([window isKindOfClass:NSClassFromString(@"UIRemoteKeyboardWindow")])
+                {
+                    [self.colorView updateUIWithHeight:self.keyboardSpacingHeight+44];
+                    [window addSubview:self.colorView];
+                }
+            }
+            CGRect frame = self.colorView.frame;
+            frame.origin.y = [[UIScreen mainScreen] bounds].size.height - 64;
+            frame.size.height = self.keyboardSpacingHeight+44;
+            self.colorView.frame = frame;
+            [UIView animateWithDuration:0.6 animations:^{
+                CGRect frame = self.colorView.frame;
+                frame.origin.y = [[UIScreen mainScreen] bounds].size.height - self.keyboardSpacingHeight-44;
+                self.colorView.frame = frame;
+            }];
             break;
         }break;
         case 3:{
-           
+            for(UIView*window in [UIApplication sharedApplication].windows)
+            {
+                if([window isKindOfClass:NSClassFromString(@"UIRemoteKeyboardWindow")])
+                {
+                    [self.fontView updateUIWithHeight:self.keyboardSpacingHeight+44];
+                    [window addSubview:self.fontView];
+                }
+            }
+            CGRect frame = self.fontView.frame;
+            frame.origin.y = [[UIScreen mainScreen] bounds].size.height - 64;
+            frame.size.height = self.keyboardSpacingHeight+44;
+            self.fontView.frame = frame;
+            [UIView animateWithDuration:0.6 animations:^{
+                CGRect frame = self.fontView.frame;
+                frame.origin.y = [[UIScreen mainScreen] bounds].size.height - self.keyboardSpacingHeight-44;
+                self.fontView.frame = frame;
+            }];
         }break;
         case 4:
         {
@@ -417,12 +493,12 @@ static CGFloat kDefaultScale = 0.5;
         if([window isKindOfClass:NSClassFromString(@"UIRemoteKeyboardWindow")])
         {
             for (UIView *subview in window.subviews) {
-//                if ([subview isKindOfClass:[YFSetColorView class]]) {
-//                    [subview removeFromSuperview];
-//                }
-//                if ([subview isKindOfClass:[YFSetColorView class]]) {
-//                    [subview removeFromSuperview];
-//                }
+                if ([subview isKindOfClass:[YFSetColorView class]]) {
+                    [subview removeFromSuperview];
+                }
+                if ([subview isKindOfClass:[YFSetColorView class]]) {
+                    [subview removeFromSuperview];
+                }
             }
         }
     }
@@ -1667,13 +1743,6 @@ static CGFloat kDefaultScale = 0.5;
     if (self.customCSS) {
         [self updateCSS];
     }
-
-    if (self.shouldShowKeyboard) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self focusTextEditor];
-        });
-    }
-    
     /*
      
      Callback for when text is changed, solution posted by richardortiz84 https://github.com/nnhubbard/ZSSRichTextEditor/issues/5
@@ -1906,7 +1975,7 @@ static CGFloat kDefaultScale = 0.5;
     const int extraHeight = 0;
     
     if ([notification.name isEqualToString:UIKeyboardWillShowNotification]) {
-        
+        self.keyboardSpacingHeight = keyboardHeight;
         [UIView animateWithDuration:duration delay:0 options:animationOptions animations:^{
             
             // Toolbar
@@ -1934,7 +2003,7 @@ static CGFloat kDefaultScale = 0.5;
         } completion:nil];
         
     } else {
-        
+        self.keyboardSpacingHeight = 0;
         [UIView animateWithDuration:duration delay:0 options:animationOptions animations:^{
             
             CGRect frame = self.toolbarHolder.frame;
