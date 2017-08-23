@@ -94,9 +94,7 @@ static Class hackishFixClass = Nil;
 /*
  *  Toolbar containing ZSSBarButtonItems
  */
-@property (nonatomic, strong) UIToolbar *toolbar;
-
-
+//@property (nonatomic, strong) UIToolbar *toolbar;
 @property (strong,nonatomic)  LFToolBarView *lfToolBar;
 
 /*
@@ -241,18 +239,20 @@ static CGFloat kDefaultScale = 0.5;
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
+    self.view.backgroundColor = [UIColor whiteColor];
     //Initialise variables
     self.editorLoaded = NO;
     self.receiveEditorDidChangeEvents = NO;
     self.alwaysShowToolbar = NO;
-    self.shouldShowKeyboard = NO;
+    self.shouldShowKeyboard = YES;
     self.formatHTML = YES;
     
-    //Frame for the source view and editor view
-    CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    //Initalise enabled toolbar items array
+    self.enabledToolbarItems = [[NSArray alloc] init];
     
-    [self createToolbar];
+    //Frame for the source view and editor view
+    CGRect frame = CGRectMake(0,64, self.view.frame.size.width, self.view.frame.size.height);
+    
     //Source View
     [self createSourceViewWithFrame:frame];
     
@@ -260,7 +260,18 @@ static CGFloat kDefaultScale = 0.5;
     [self createEditorViewWithFrame:frame];
     
     //Image Picker used to allow the user insert images from the device (base64 encoded)
-//    [self.view addSubview:self.lfToolBar];
+    [self setUpImagePicker];
+    
+    //Scrolling View
+    [self createToolBarScroll];
+    
+    //Toolbar with icons
+    [self createToolbar];
+    
+    //Parent holding view
+    [self createParentHoldingView];
+    [self.view addSubview:self.toolbarHolder];
+    //Load Resources
     if (!self.resourcesLoaded) {
         
         [self loadResources];
@@ -303,8 +314,6 @@ static CGFloat kDefaultScale = 0.5;
     self.sourceView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.sourceView.autoresizesSubviews = YES;
     self.sourceView.delegate = self;
-    self.sourceView.backgroundColor = [UIColor whiteColor];
-    self.sourceView.inputAccessoryView = self.lfToolBar;
     [self.view addSubview:self.sourceView];
     
 }
@@ -319,9 +328,26 @@ static CGFloat kDefaultScale = 0.5;
     self.editorView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
     self.editorView.dataDetectorTypes = UIDataDetectorTypeNone;
     self.editorView.scrollView.bounces = NO;
-    self.editorView.opaque = NO;
     self.editorView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.editorView];
+    
+}
+
+- (void)setUpImagePicker {
+    
+    self.imagePicker = [[UIImagePickerController alloc] init];
+    self.imagePicker.delegate = self;
+    self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    self.imagePicker.allowsEditing = YES;
+    self.selectedImageScale = kDefaultScale; //by default scale to half the size
+    
+}
+
+- (void)createToolBarScroll {
+    
+    self.toolBarScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, [self isIpad] ? self.view.frame.size.width : self.view.frame.size.width, 44)];
+    self.toolBarScroll.backgroundColor = [UIColor clearColor];
+    self.toolBarScroll.showsHorizontalScrollIndicator = NO;
     
 }
 
@@ -340,7 +366,7 @@ static CGFloat kDefaultScale = 0.5;
                              [UIImage imageNamed:@"text-size"],
                              [UIImage imageNamed:@"img"]
                              ];
-
+    
     self.lfToolBar = [[LFToolBarView alloc] initWithItems:items AndSelectItems:selectItems];
     self.lfToolBar.delegate = self;
     self.lfToolBar.changeSegmentManually = YES;
@@ -348,19 +374,40 @@ static CGFloat kDefaultScale = 0.5;
     CGRect rect = self.view.bounds;
     rect.size.height = 44.f;
     self.lfToolBar.frame = rect;
+    [self.toolBarScroll addSubview:self.lfToolBar];
 }
-
 
 - (void)lf_control:(LFToolBarView *)view didSelectIndex:(NSInteger)index{
-
-
+    
+    
 }
-
 
 - (void)changeTextInputView:(LFToolBarView *)control {
-
-
+    
+    
 }
+
+- (void)createParentHoldingView {
+    
+    //Background Toolbar
+    UIToolbar *backgroundToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
+    backgroundToolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    
+    //Parent holding view
+    self.toolbarHolder = [[UIView alloc] init];
+    
+    if (_alwaysShowToolbar) {
+        self.toolbarHolder.frame = CGRectMake(0, self.view.frame.size.height - 44, self.view.frame.size.width, 44);
+    } else {
+        self.toolbarHolder.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 44);
+    }
+    
+    self.toolbarHolder.autoresizingMask = self.lfToolBar.autoresizingMask;
+    [self.toolbarHolder addSubview:self.toolBarScroll];
+    [self.toolbarHolder insertSubview:backgroundToolbar atIndex:0];
+    
+}
+
 #pragma mark - Resources Section
 
 - (void)loadResources {
@@ -392,6 +439,23 @@ static CGFloat kDefaultScale = 0.5;
     self.resourcesLoaded = YES;
     
 }
+
+#pragma mark - Toolbar Section
+
+- (void)setEnabledToolbarItems:(NSArray *)enabledToolbarItems {
+    
+    _enabledToolbarItems = enabledToolbarItems;
+    
+}
+
+
+- (void)setToolbarItemTintColor:(UIColor *)toolbarItemTintColor {
+    
+    _toolbarItemTintColor = toolbarItemTintColor;
+    self.keyboardItem.tintColor = toolbarItemTintColor;
+    
+}
+
 
 - (void)setToolbarItemSelectedTintColor:(UIColor *)toolbarItemSelectedTintColor {
     
@@ -1479,14 +1543,14 @@ static CGFloat kDefaultScale = 0.5;
     self.editorItemsEnabled = itemNames;
     
     // Highlight items
-    NSArray *items = self.toolbar.items;
-    for (ZSSBarButtonItem *item in items) {
-        if ([itemNames containsObject:item.label]) {
-            item.tintColor = [self barButtonItemSelectedDefaultColor];
-        } else {
-            item.tintColor = [self barButtonItemDefaultColor];
-        }
-    }
+//    NSArray *items = self.toolbar.items;
+//    for (ZSSBarButtonItem *item in items) {
+//        if ([itemNames containsObject:item.label]) {
+//            item.tintColor = [self barButtonItemSelectedDefaultColor];
+//        } else {
+//            item.tintColor = [self barButtonItemDefaultColor];
+//        }
+//    }
     
 }
 
@@ -1789,8 +1853,8 @@ static CGFloat kDefaultScale = 0.5;
     CGRect keyboardEnd = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
     // Toolbar Sizes
-//    CGFloat sizeOfToolbar = self.toolbarHolder.frame.size.height;
-    CGFloat sizeOfToolbar = self.lfToolBar.frame.size.height;
+    CGFloat sizeOfToolbar = self.toolbarHolder.frame.size.height;
+    
     // Keyboard Size
     //Checks if IOS8, gets correct keyboard height
     CGFloat keyboardHeight = UIInterfaceOrientationIsLandscape(orientation) ? ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.000000) ? keyboardEnd.size.height : keyboardEnd.size.width : keyboardEnd.size.height;
@@ -1805,14 +1869,9 @@ static CGFloat kDefaultScale = 0.5;
         [UIView animateWithDuration:duration delay:0 options:animationOptions animations:^{
             
             // Toolbar
-            CGRect frame = self.lfToolBar.frame;
-            frame.origin.y = self.view.frame.size.height;
-            self.lfToolBar.frame = frame;
-            [UIView animateWithDuration:0.6 animations:^{
-                CGRect frame = self.lfToolBar.frame;
-                frame.origin.y = self.view.frame.size.height - (keyboardHeight + sizeOfToolbar);
-                self.lfToolBar.frame = frame;
-            }];
+            CGRect frame = self.toolbarHolder.frame;
+            frame.origin.y = self.view.frame.size.height - (keyboardHeight + sizeOfToolbar);
+            self.toolbarHolder.frame = frame;
             
             // Editor View
             CGRect editorFrame = self.editorView.frame;
@@ -1837,7 +1896,7 @@ static CGFloat kDefaultScale = 0.5;
         
         [UIView animateWithDuration:duration delay:0 options:animationOptions animations:^{
             
-            CGRect frame = self.lfToolBar.frame;
+            CGRect frame = self.toolbarHolder.frame;
             
             if (_alwaysShowToolbar) {
                 frame.origin.y = self.view.frame.size.height - sizeOfToolbar;
@@ -1845,7 +1904,7 @@ static CGFloat kDefaultScale = 0.5;
                 frame.origin.y = self.view.frame.size.height + keyboardHeight;
             }
             
-            self.lfToolBar.frame = frame;
+            self.toolbarHolder.frame = frame;
             
             // Editor View
             CGRect editorFrame = self.editorView.frame;
@@ -1936,12 +1995,12 @@ static CGFloat kDefaultScale = 0.5;
 }
 
 - (void)enableToolbarItems:(BOOL)enable {
-    NSArray *items = self.toolbar.items;
-    for (ZSSBarButtonItem *item in items) {
-        if (![item.label isEqualToString:@"source"]) {
-            item.enabled = enable;
-        }
-    }
+//    NSArray *items = self.toolbar.items;
+//    for (ZSSBarButtonItem *item in items) {
+//        if (![item.label isEqualToString:@"source"]) {
+//            item.enabled = enable;
+//        }
+//    }
 }
 
 #pragma mark - Memory Warning Section

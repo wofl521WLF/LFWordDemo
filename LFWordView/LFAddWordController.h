@@ -7,7 +7,7 @@
 //
 
 #import "ZSSRichTextEditor.h"
-
+#import <UIKit/UIKit.h>
 @interface LFAddWordController : ZSSRichTextEditor
 
 @end

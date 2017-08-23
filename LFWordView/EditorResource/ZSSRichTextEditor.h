@@ -191,17 +191,6 @@ static NSString * const ZSSRichTextEditorToolbarFonts = @"com.zedsaid.toolbarite
  *  Dismisses the current AlertView
  */
 - (void)dismissAlertView;
-
-/**
- *  Add a custom UIBarButtonItem by using a UIButton
- */
-- (void)addCustomToolbarItemWithButton:(UIButton*)button;
-
-/**
- *  Add a custom ZSSBarButtonItem
- */
-- (void)addCustomToolbarItem:(ZSSBarButtonItem *)item;
-
 /**
  *  Scroll event callback with position
  */

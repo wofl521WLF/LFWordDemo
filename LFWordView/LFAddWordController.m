@@ -21,14 +21,30 @@
     [self setCSS:customCSS];
     self.alwaysShowToolbar = YES;
     self.receiveEditorDidChangeEvents = NO;
-    [self setPlaceholder:@"请输入编写内容"];
-    
-    
-    
-    
-    
+    [self setPlaceholder:@"请输入内容"];
     // Do any additional setup after loading the view.
 }
+
+- (void)editorDidChangeWithText:(NSString *)text andHTML:(NSString *)html {
+    
+    NSLog(@"Text Has Changed: %@", text);
+    
+    NSLog(@"HTML Has Changed: %@", html);
+    
+}
+
+- (void)hashtagRecognizedWithWord:(NSString *)word {
+    
+    NSLog(@"Hashtag has been recognized: %@", word);
+    
+}
+
+- (void)mentionRecognizedWithWord:(NSString *)word {
+    
+    NSLog(@"Mention has been recognized: %@", word);
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
