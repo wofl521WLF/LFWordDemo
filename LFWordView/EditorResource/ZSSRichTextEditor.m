@@ -378,13 +378,54 @@ static CGFloat kDefaultScale = 0.5;
 }
 
 - (void)lf_control:(LFToolBarView *)view didSelectIndex:(NSInteger)index{
-    
-    
+    [view setSelectedSegmentIndex:index animated:YES];
 }
 
 - (void)changeTextInputView:(LFToolBarView *)control {
     
-    
+    [self removiewFromKeyBoardWindow];
+    switch (control.selectedSegmentIndex) {
+        case 0:
+        {
+            [self setBold];
+            break;
+        }
+        case 1:{
+            [self setUnderline];
+        }
+            break;
+        case 2:{
+           
+            break;
+        }break;
+        case 3:{
+           
+        }break;
+        case 4:
+        {
+
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+- (void)removiewFromKeyBoardWindow{
+    for(UIView*window in [UIApplication sharedApplication].windows)
+    {
+        if([window isKindOfClass:NSClassFromString(@"UIRemoteKeyboardWindow")])
+        {
+            for (UIView *subview in window.subviews) {
+//                if ([subview isKindOfClass:[YFSetColorView class]]) {
+//                    [subview removeFromSuperview];
+//                }
+//                if ([subview isKindOfClass:[YFSetColorView class]]) {
+//                    [subview removeFromSuperview];
+//                }
+            }
+        }
+    }
 }
 
 - (void)createParentHoldingView {
