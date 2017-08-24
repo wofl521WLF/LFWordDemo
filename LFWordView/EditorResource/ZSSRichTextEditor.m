@@ -249,8 +249,7 @@ static CGFloat kDefaultScale = 0.5;
 - (YFSetFontView *)fontView{
     if (_fontView == nil) {
         _fontView = [YFSetFontView getYSFontView];
-//        _fontView.textStyle = self.currentTextStyle;
-//        WS(weakSelf)
+        WS(weakSelf)
 //        _fontView.styleBlock = ^(LMTextStyle *style) {
 //            [weakSelf lm_didChangedTextStyle:style];
 //            [weakSelf.textView becomeFirstResponder];
@@ -265,11 +264,11 @@ static CGFloat kDefaultScale = 0.5;
         _colorView = [YFSetColorView getColorView];
         WS(weakSelf)
         _colorView.styleBlock = ^(NSString *colorHex) {
+            [weakSelf.colorView removeFromSuperview];
             if (nil != colorHex) {
                 [weakSelf updateTextColor:colorHex];
+                [weakSelf focusTextEditor];
             }
-            [weakSelf focusTextEditor];
-            [weakSelf.colorView removeFromSuperview];
         };
     }
     return _colorView;
@@ -459,6 +458,8 @@ static CGFloat kDefaultScale = 0.5;
                 frame.origin.y = [[UIScreen mainScreen] bounds].size.height - self.keyboardSpacingHeight-44;
                 self.colorView.frame = frame;
             }];
+            // Save the selection location
+            [self.editorView stringByEvaluatingJavaScriptFromString:@"zss_editor.prepareInsert();"];
             break;
         }break;
         case 3:{

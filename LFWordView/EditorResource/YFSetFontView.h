@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 //#import "LMTextStyle.h"
 @interface YFSetFontView : UIView
-//@property (nonatomic, strong) LMTextStyle *textStyle;
 //@property (nonatomic, strong) void (^styleBlock)(LMTextStyle *style);
 + (id)getYSFontView;
 //字体处理
