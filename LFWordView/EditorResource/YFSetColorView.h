@@ -7,10 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-//#import "LMTextStyle.h"
 @interface YFSetColorView : UIView
-//@property (nonatomic, strong) LMTextStyle *textStyle;
-//@property (nonatomic, strong) void (^styleBlock)(LMTextStyle *style);
+@property (nonatomic, strong) void (^styleBlock)(NSString *colorHex);
 + (id)getColorView;
 #pragma mark --- 颜色选择
 - (void)updateUIWithHeight:(CGFloat)height;

@@ -14,6 +14,10 @@
 #import "ZSSTextView.h"
 #import "YFSetFontView.h"
 #import "YFSetColorView.h"
+
+#define WS(weakSelf)  __weak __typeof(&*self)weakSelf = self;
+
+
 @import JavaScriptCore;
 
 
@@ -259,15 +263,14 @@ static CGFloat kDefaultScale = 0.5;
 - (YFSetColorView *)colorView{
     if (_colorView == nil) {
         _colorView = [YFSetColorView getColorView];
-//        _colorView.textStyle = self.currentTextStyle;
-//        WS(weakSelf)
-//        _colorView.styleBlock = ^(LMTextStyle *style) {
-//            if (nil != style) {
-//                [weakSelf lm_didChangedTextStyle:style];
-//            }
-//            [weakSelf.textView becomeFirstResponder];
-//            [weakSelf.colorView removeFromSuperview];
-//        };
+        WS(weakSelf)
+        _colorView.styleBlock = ^(NSString *colorHex) {
+            if (nil != colorHex) {
+                [weakSelf updateTextColor:colorHex];
+            }
+            [weakSelf focusTextEditor];
+            [weakSelf.colorView removeFromSuperview];
+        };
     }
     return _colorView;
 }
@@ -333,7 +336,7 @@ static CGFloat kDefaultScale = 0.5;
 - (void)viewWillDisappear:(BOOL)animated {
     
     [super viewWillDisappear:animated];
-    
+    [self removiewFromKeyBoardWindow];
     //Remove observers for keyboard showing or hiding notifications
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
@@ -600,18 +603,6 @@ static CGFloat kDefaultScale = 0.5;
             [items addObject:@""];
         }
     }
-    
-    // Bold
-    if ((_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarBold]) || (_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarAll])) {
-        ZSSBarButtonItem *bold = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSbold.png" inBundle:bundle compatibleWithTraitCollection:nil] style:UIBarButtonItemStylePlain target:self action:@selector(setBold)];
-        bold.label = @"bold";
-        if (customOrder) {
-            [items replaceObjectAtIndex:[_enabledToolbarItems indexOfObject:ZSSRichTextEditorToolbarBold] withObject:bold];
-        } else {
-            [items addObject:bold];
-        }
-    }
-    
     // Italic
     if ((_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarItalic]) || (_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarAll])) {
         ZSSBarButtonItem *italic = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSitalic.png" inBundle:bundle compatibleWithTraitCollection:nil] style:UIBarButtonItemStylePlain target:self action:@selector(setItalic)];
@@ -1308,6 +1299,12 @@ static CGFloat kDefaultScale = 0.5;
     
 }
 
+#pragma mark ---- 更改颜色
+- (void)updateTextColor:(NSString *)colorHex{
+    NSString *trigger = [NSString stringWithFormat:@"zss_editor.setTextColor(\"%@\");",colorHex];
+    [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
+}
+
 - (void)setSelectedColor:(UIColor*)color tag:(int)tag {
     
     NSString *hex = [NSString stringWithFormat:@"#%06x",HexColorFromUIColor(color)];
@@ -1627,51 +1624,6 @@ static CGFloat kDefaultScale = 0.5;
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
 }
 
-
-- (void)updateToolBarWithButtonName:(NSString *)name {
-    
-    // Items that are enabled
-    NSArray *itemNames = [name componentsSeparatedByString:@","];
-    
-    // Special case for link
-    NSMutableArray *itemsModified = [[NSMutableArray alloc] init];
-    for (NSString *linkItem in itemNames) {
-        NSString *updatedItem = linkItem;
-        if ([linkItem hasPrefix:@"link:"]) {
-            updatedItem = @"link";
-            self.selectedLinkURL = [linkItem stringByReplacingOccurrencesOfString:@"link:" withString:@""];
-        } else if ([linkItem hasPrefix:@"link-title:"]) {
-            self.selectedLinkTitle = [self stringByDecodingURLFormat:[linkItem stringByReplacingOccurrencesOfString:@"link-title:" withString:@""]];
-        } else if ([linkItem hasPrefix:@"image:"]) {
-            updatedItem = @"image";
-            self.selectedImageURL = [linkItem stringByReplacingOccurrencesOfString:@"image:" withString:@""];
-        } else if ([linkItem hasPrefix:@"image-alt:"]) {
-            self.selectedImageAlt = [self stringByDecodingURLFormat:[linkItem stringByReplacingOccurrencesOfString:@"image-alt:" withString:@""]];
-        } else {
-            self.selectedImageURL = nil;
-            self.selectedImageAlt = nil;
-            self.selectedLinkURL = nil;
-            self.selectedLinkTitle = nil;
-        }
-        [itemsModified addObject:updatedItem];
-    }
-    itemNames = [NSArray arrayWithArray:itemsModified];
-    
-    self.editorItemsEnabled = itemNames;
-    
-    // Highlight items
-//    NSArray *items = self.toolbar.items;
-//    for (ZSSBarButtonItem *item in items) {
-//        if ([itemNames containsObject:item.label]) {
-//            item.tintColor = [self barButtonItemSelectedDefaultColor];
-//        } else {
-//            item.tintColor = [self barButtonItemDefaultColor];
-//        }
-//    }
-    
-}
-
-
 #pragma mark - UITextView Delegate
 
 - (void)textViewDidChange:(UITextView *)textView {
@@ -1694,37 +1646,7 @@ static CGFloat kDefaultScale = 0.5;
 #pragma mark - UIWebView Delegate
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    
-    
-    NSString *urlString = [[request URL] absoluteString];
-    //NSLog(@"web request");
-    //NSLog(@"%@", urlString);
-    if (navigationType == UIWebViewNavigationTypeLinkClicked) {
-        return NO;
-    } else if ([urlString rangeOfString:@"callback://0/"].location != NSNotFound) {
-        
-        // We recieved the callback
-        NSString *className = [urlString stringByReplacingOccurrencesOfString:@"callback://0/" withString:@""];
-        [self updateToolBarWithButtonName:className];
-        
-    } else if ([urlString rangeOfString:@"debug://"].location != NSNotFound) {
-        
-        NSLog(@"Debug Found");
-        
-        // We recieved the callback
-        NSString *debug = [urlString stringByReplacingOccurrencesOfString:@"debug://" withString:@""];
-        debug = [debug stringByReplacingPercentEscapesUsingEncoding:NSStringEncodingConversionAllowLossy];
-        NSLog(@"%@", debug);
-        
-    } else if ([urlString rangeOfString:@"scroll://"].location != NSNotFound) {
-        
-        NSInteger position = [[urlString stringByReplacingOccurrencesOfString:@"scroll://" withString:@""] integerValue];
-        [self editorDidScrollWithPosition:position];
-        
-    }
-    
     return YES;
-    
 }
 
 

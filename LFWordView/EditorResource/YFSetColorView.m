@@ -82,15 +82,15 @@ UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>{
     Itemwidth = 47.3*(width/375.0);
     ItemLength = 34*(width/375.0);
     interSpace = width*(20.0/375.0);
-    lineSpace = width*(18.0/375.0);
-    topSpace = width*(18.0/375.0);
+    lineSpace = width*(15.0/375.0);
+    topSpace = width*(15.0/375.0);
     [self addSubview:self.headView];
     [self.finishBtn setTitleColor: YFColorRGB(38, 159, 243) forState:UIControlStateNormal];
     [self.finishBtn addTarget:self action:@selector(finishAction:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)initData{
-    NSArray *aa = @[@"#AE40C5",@"#E9112B ",@"#4A90E2",@"#50E3C2",@"#9AD221",@"#F5A623",@"#8B572A",@"#417505",@"#0B67C3",@"#0ABA3F",@"#F98B8B",@"#10BAE0",@"#4A4A4A",@"#000000",@"#9B9B9B"];
+    NSArray *aa = @[@"#AE40C5",@"#E9112B ",@"#4A90E2",@"#50E3C2",@"#9AD221",@"#F5A623",@"#8B572A",@"#417505",@"#0B67C3",@"#0ABA3F",@"#F98B8B",@"#10BAE0",@"#4A4A4A",@"#000000",@"#9B9B9B",@"#EE4075",@"#00FFFF",@"#36648B",@"#0000FF",@"#00FF00",@"#FF00FF",@"#FFFF00",@"#FF83FA",@"#C0FF3E",@"#87CEFF"];
     [self.arr addObjectsFromArray:aa];
 }
 
@@ -114,7 +114,7 @@ UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>{
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 15;
+    return self.arr.count;
 }
 #pragma mark ---- 自定义Cell
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -130,17 +130,15 @@ UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>{
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-//    UIColor *cc = [UIColor colorWithHexString:self.arr[indexPath.row]];
-//    self.textStyle.textColor = cc;
-//    if (self.styleBlock) {
-//        self.styleBlock(self.textStyle);
-//    }
+    if (self.styleBlock) {
+        self.styleBlock(self.arr[indexPath.row]);
+    }
 }
 
 - (void)finishAction:(id)sender {
-//    if (self.styleBlock) {
-//        self.styleBlock(nil);
-//    }
+    if (self.styleBlock) {
+        self.styleBlock(nil);
+    }
 }
 
 - (void)willMoveToSuperview:(UIView *)newSuperview{
