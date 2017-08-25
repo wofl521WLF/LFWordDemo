@@ -250,11 +250,12 @@ static CGFloat kDefaultScale = 0.5;
     if (_fontView == nil) {
         _fontView = [YFSetFontView getYSFontView];
         WS(weakSelf)
-//        _fontView.styleBlock = ^(LMTextStyle *style) {
-//            [weakSelf lm_didChangedTextStyle:style];
-//            [weakSelf.textView becomeFirstResponder];
-//            [weakSelf.fontView removeFromSuperview];
-//        };
+        _fontView.styleBlock = ^(NSString *fontsize) {
+            [weakSelf.fontView removeFromSuperview];
+            if (nil != fontsize) {
+                [weakSelf updateTextFont:fontsize];
+            }
+        };
     }
     return _fontView;
 }
@@ -267,7 +268,6 @@ static CGFloat kDefaultScale = 0.5;
             [weakSelf.colorView removeFromSuperview];
             if (nil != colorHex) {
                 [weakSelf updateTextColor:colorHex];
-                [weakSelf focusTextEditor];
             }
         };
     }
@@ -480,6 +480,8 @@ static CGFloat kDefaultScale = 0.5;
                 frame.origin.y = [[UIScreen mainScreen] bounds].size.height - self.keyboardSpacingHeight-44;
                 self.fontView.frame = frame;
             }];
+            // Save the selection location
+            [self.editorView stringByEvaluatingJavaScriptFromString:@"zss_editor.prepareInsert();"];
         }break;
         case 4:
         {
@@ -1300,6 +1302,12 @@ static CGFloat kDefaultScale = 0.5;
     
 }
 
+#pragma mark ---- 更改字体大小
+- (void)updateTextFont:(NSString *)fontSize{
+    NSString *trigger = [NSString stringWithFormat:@"zss_editor.setFontSize(\"%@\");",fontSize];
+    [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
+}
+
 #pragma mark ---- 更改颜色
 - (void)updateTextColor:(NSString *)colorHex{
     NSString *trigger = [NSString stringWithFormat:@"zss_editor.setTextColor(\"%@\");",colorHex];
@@ -2025,15 +2033,6 @@ static CGFloat kDefaultScale = 0.5;
     NSString *result = [string stringByReplacingOccurrencesOfString:@"+" withString:@" "];
     result = [result stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     return result;
-}
-
-- (void)enableToolbarItems:(BOOL)enable {
-//    NSArray *items = self.toolbar.items;
-//    for (ZSSBarButtonItem *item in items) {
-//        if (![item.label isEqualToString:@"source"]) {
-//            item.enabled = enable;
-//        }
-//    }
 }
 
 #pragma mark - Memory Warning Section

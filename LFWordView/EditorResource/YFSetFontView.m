@@ -119,25 +119,26 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSString *fontSize = @"12px";
     switch (indexPath.row) {
         case 0:
-//            self.textStyle.fontSize = 36.0;
+            fontSize = @"36px";
             break;
         case 1:
-//            self.textStyle.fontSize = 24.0;
+            fontSize = @"24px";
             break;
         case 2:
-//            self.textStyle.fontSize = 16.0;
+            fontSize = @"16px";
             break;
         case 3:
-//            self.textStyle.fontSize = 12.0;
+            fontSize = @"12px";
             break;
         default:
             break;
     }
-//    if (self.styleBlock) {
-//        self.styleBlock(self.textStyle);
-//    }
+    if (self.styleBlock) {
+        self.styleBlock(fontSize);
+    }
     
 }
 
@@ -151,9 +152,9 @@
 
 
 - (void)finishAction:(id)sender {
-//    if (self.styleBlock) {
-//        self.styleBlock(self.textStyle);
-//    }
+    if (self.styleBlock) {
+        self.styleBlock(nil);
+    }
 }
 
 -(void)viewDidLayoutSubviews

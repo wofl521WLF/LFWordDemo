@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-//#import "LMTextStyle.h"
 @interface YFSetFontView : UIView
-//@property (nonatomic, strong) void (^styleBlock)(LMTextStyle *style);
+@property (nonatomic, strong) void (^styleBlock)(NSString *fontSize);
 + (id)getYSFontView;
 //字体处理
 - (void)updateUIWithHeight:(CGFloat)height;
