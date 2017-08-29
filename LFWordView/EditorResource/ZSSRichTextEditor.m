@@ -263,6 +263,10 @@ static CGFloat kDefaultScale = 0.5;
 - (YFSetColorView *)colorView{
     if (_colorView == nil) {
         _colorView = [YFSetColorView getColorView];
+        // Save the selection location
+        [self.editorView stringByEvaluatingJavaScriptFromString:@"zss_editor.prepareInsert();"];
+        NSString *trigger = [NSString stringWithFormat:@"zss_editor.setTextColor(\"%@\");",@"#444444"];
+        [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
         WS(weakSelf)
         _colorView.styleBlock = ^(NSString *colorHex) {
             [weakSelf.colorView removeFromSuperview];
@@ -1240,11 +1244,11 @@ static CGFloat kDefaultScale = 0.5;
             break;
         
         case ZSSFontFamilyGeorgia:
-            fontFamilyString = @"Georgia, serif";
+            fontFamilyString = @"STHeitiSC-Light";
             break;
         
         case ZSSFontFamilyPalatino:
-            fontFamilyString = @"Palatino Linotype, Book Antiqua, Palatino, serif";
+            fontFamilyString = @"STHeitiSC-Light";
             break;
         
         case ZSSFontFamilyTimesNew:
@@ -1304,7 +1308,7 @@ static CGFloat kDefaultScale = 0.5;
 
 #pragma mark ---- 更改字体大小
 - (void)updateTextFont:(NSString *)fontSize{
-    NSString *trigger = [NSString stringWithFormat:@"zss_editor.setFontSize(\"%@\");",fontSize];
+    NSString *trigger = [NSString stringWithFormat:@"zss_editor.setTextFontSize(\"%@\");",fontSize];
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
 }
 

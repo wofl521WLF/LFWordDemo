@@ -173,6 +173,7 @@ zss_editor.backuprange = function(){
 }
 
 zss_editor.restorerange = function(){
+    alert("删繁就简");
     var selection = window.getSelection();
     selection.removeAllRanges();
     var range = document.createRange();
@@ -335,7 +336,6 @@ zss_editor.setFontFamily = function(fontFamily) {
 }
 
 zss_editor.setTextColor = function(color) {
-		
     zss_editor.restorerange();
     document.execCommand("styleWithCSS", null, true);
     document.execCommand('foreColor', false, color);
@@ -343,6 +343,14 @@ zss_editor.setTextColor = function(color) {
     zss_editor.enabledEditingItems();
     // document.execCommand("removeFormat", false, "foreColor"); // Removes just foreColor
 	
+}
+
+zss_editor.setTextFontSize = function(font) {
+    zss_editor.restorerange();
+    document.execCommand("styleWithCSS", null, true);
+    document.execCommand('fontSize',false,font);
+    document.execCommand("styleWithCSS", null, false);
+    zss_editor.enabledEditingItems();
 }
 
 zss_editor.setBackgroundColor = function(color) {
@@ -606,6 +614,10 @@ zss_editor.enabledEditingItems = function(e) {
         var textColor = t.css('color');
         if (textColor.length != 0 && textColor != 'rgba(0, 0, 0, 0)' && textColor != 'rgb(0, 0, 0)' && textColor != 'transparent') {
             items.push('textColor');
+        }
+        var fontSize  = t.css('font-size')
+        if(fontSize.length != 0){
+            items.push('font');
         }
 		
 		//Fonts

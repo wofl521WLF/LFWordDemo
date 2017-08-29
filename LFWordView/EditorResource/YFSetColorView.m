@@ -90,7 +90,7 @@ UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>{
 }
 
 - (void)initData{
-    NSArray *aa = @[@"#AE40C5",@"#E9112B ",@"#4A90E2",@"#50E3C2",@"#9AD221",@"#F5A623",@"#8B572A",@"#417505",@"#0B67C3",@"#0ABA3F",@"#F98B8B",@"#10BAE0",@"#4A4A4A",@"#000000",@"#9B9B9B",@"#EE4075",@"#00FFFF",@"#36648B",@"#0000FF",@"#00FF00",@"#FF00FF",@"#FFFF00",@"#FF83FA",@"#C0FF3E",@"#87CEFF"];
+    NSArray *aa = @[@"#AE40C5",@"#E9112B ",@"#4A90E2",@"#50E3C2",@"#9AD221",@"#F5A623",@"#8B572A",@"#417505",@"#0B67C3",@"#0ABA3F",@"#F98B8B",@"#10BAE0",@"#4A4A4A",@"#454545",@"#9B9B9B",@"#EE4075",@"#00FFFF",@"#36648B",@"#0000FF",@"#00FF00",@"#FF00FF",@"#FFFF00",@"#FF83FA",@"#C0FF3E",@"#87CEFF"];
     [self.arr addObjectsFromArray:aa];
 }
 

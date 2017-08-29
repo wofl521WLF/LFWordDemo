@@ -495,6 +495,7 @@
 				TargetAttributes = {
 					09B8D1811F3ADD1E008501AA = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = W4M3J6TJMK;
 						ProvisioningStyle = Automatic;
 					};
 					09B8D19A1F3ADD1E008501AA = {
@@ -769,9 +770,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = W4M3J6TJMK;
 				INFOPLIST_FILE = LFWordView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = WLF.LFWordView;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yousails.chrenai;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -780,9 +782,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = W4M3J6TJMK;
 				INFOPLIST_FILE = LFWordView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = WLF.LFWordView;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yousails.chrenai;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
