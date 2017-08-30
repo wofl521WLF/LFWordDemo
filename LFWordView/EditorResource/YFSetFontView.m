@@ -122,16 +122,16 @@
     NSString *fontSize = @"12px";
     switch (indexPath.row) {
         case 0:
-            fontSize = @"36px";
+            fontSize = @"7px";
             break;
         case 1:
-            fontSize = @"24px";
+            fontSize = @"5px";
             break;
         case 2:
-            fontSize = @"16px";
+            fontSize = @"4px";
             break;
         case 3:
-            fontSize = @"12px";
+            fontSize = @"3px";
             break;
         default:
             break;

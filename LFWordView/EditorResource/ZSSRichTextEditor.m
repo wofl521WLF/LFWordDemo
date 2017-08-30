@@ -1308,7 +1308,7 @@ static CGFloat kDefaultScale = 0.5;
 
 #pragma mark ---- 更改字体大小
 - (void)updateTextFont:(NSString *)fontSize{
-    NSString *trigger = [NSString stringWithFormat:@"zss_editor.setTextFontSize(\"%@\");",fontSize];
+    NSString *trigger = [NSString stringWithFormat:@"zss_editor.setFontSize(\"%@\");",fontSize];
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
 }
 

@@ -173,7 +173,6 @@ zss_editor.backuprange = function(){
 }
 
 zss_editor.restorerange = function(){
-    alert("删繁就简");
     var selection = window.getSelection();
     selection.removeAllRanges();
     var range = document.createRange();
@@ -326,7 +325,6 @@ zss_editor.setOutdent = function() {
 }
 
 zss_editor.setFontFamily = function(fontFamily) {
-
 	zss_editor.restorerange();
 	document.execCommand("styleWithCSS", null, true);
 	document.execCommand("fontName", false, fontFamily);
@@ -345,12 +343,13 @@ zss_editor.setTextColor = function(color) {
 	
 }
 
-zss_editor.setTextFontSize = function(font) {
+zss_editor.setFontSize = function(fontSize) {
     zss_editor.restorerange();
     document.execCommand("styleWithCSS", null, true);
-    document.execCommand('fontSize',false,font);
+    document.execCommand('fontsize',false,fontSize);
     document.execCommand("styleWithCSS", null, false);
     zss_editor.enabledEditingItems();
+
 }
 
 zss_editor.setBackgroundColor = function(color) {
@@ -615,9 +614,9 @@ zss_editor.enabledEditingItems = function(e) {
         if (textColor.length != 0 && textColor != 'rgba(0, 0, 0, 0)' && textColor != 'rgb(0, 0, 0)' && textColor != 'transparent') {
             items.push('textColor');
         }
-        var fontSize  = t.css('font-size')
+        var fontSize  = t.css('font-size');
         if(fontSize.length != 0){
-            items.push('font');
+            items.push('fonts');
         }
 		
 		//Fonts
