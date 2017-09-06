@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		090275A61F59061A00956EDF /* QLKActionSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 090275A41F59061A00956EDF /* QLKActionSheetView.m */; };
+		090275A71F59061A00956EDF /* QLKActionSheetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 090275A51F59061A00956EDF /* QLKActionSheetView.xib */; };
+		093641A71F595F9E006EE59C /* HideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 093641A61F595F9E006EE59C /* HideView.m */; };
 		09B8D1871F3ADD1E008501AA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B8D1861F3ADD1E008501AA /* main.m */; };
 		09B8D18A1F3ADD1E008501AA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B8D1891F3ADD1E008501AA /* AppDelegate.m */; };
 		09B8D18D1F3ADD1E008501AA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B8D18C1F3ADD1E008501AA /* ViewController.m */; };
@@ -90,6 +93,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		090275A31F59061A00956EDF /* QLKActionSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QLKActionSheetView.h; sourceTree = "<group>"; };
+		090275A41F59061A00956EDF /* QLKActionSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QLKActionSheetView.m; sourceTree = "<group>"; };
+		090275A51F59061A00956EDF /* QLKActionSheetView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QLKActionSheetView.xib; sourceTree = "<group>"; };
+		093641A51F595F9E006EE59C /* HideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HideView.h; sourceTree = "<group>"; };
+		093641A61F595F9E006EE59C /* HideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HideView.m; sourceTree = "<group>"; };
 		09B8D1821F3ADD1E008501AA /* LFWordView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LFWordView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09B8D1861F3ADD1E008501AA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		09B8D1881F3ADD1E008501AA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -173,27 +181,27 @@
 		09C37F5F1F4D862D003234C1 /* NSString+YYAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+YYAdd.h"; sourceTree = "<group>"; };
 		09C37F601F4D862D003234C1 /* NSString+YYAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+YYAdd.m"; sourceTree = "<group>"; };
 		09C37F621F4D8640003234C1 /* YYCategoriesMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYCategoriesMacro.h; sourceTree = "<group>"; };
-		09D73A8F1F452C250050ABA5 /* CYRLayoutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYRLayoutManager.h; sourceTree = "<group>"; };
-		09D73A901F452C250050ABA5 /* CYRLayoutManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYRLayoutManager.m; sourceTree = "<group>"; };
-		09D73A911F452C250050ABA5 /* CYRTextStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYRTextStorage.h; sourceTree = "<group>"; };
-		09D73A921F452C250050ABA5 /* CYRTextStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYRTextStorage.m; sourceTree = "<group>"; };
-		09D73A931F452C250050ABA5 /* CYRTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYRTextView.h; sourceTree = "<group>"; };
-		09D73A941F452C250050ABA5 /* CYRTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYRTextView.m; sourceTree = "<group>"; };
-		09D73A951F452C250050ABA5 /* CYRToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYRToken.h; sourceTree = "<group>"; };
-		09D73A961F452C250050ABA5 /* CYRToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYRToken.m; sourceTree = "<group>"; };
-		09D73A971F452C250050ABA5 /* HRBrightnessCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRBrightnessCursor.h; sourceTree = "<group>"; };
-		09D73A981F452C250050ABA5 /* HRBrightnessCursor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRBrightnessCursor.m; sourceTree = "<group>"; };
-		09D73A991F452C250050ABA5 /* HRCgUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRCgUtil.h; sourceTree = "<group>"; };
-		09D73A9A1F452C250050ABA5 /* HRCgUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRCgUtil.m; sourceTree = "<group>"; };
-		09D73A9B1F452C250050ABA5 /* HRColorCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRColorCursor.h; sourceTree = "<group>"; };
-		09D73A9C1F452C250050ABA5 /* HRColorCursor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRColorCursor.m; sourceTree = "<group>"; };
-		09D73A9D1F452C250050ABA5 /* HRColorPickerMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRColorPickerMacros.h; sourceTree = "<group>"; };
-		09D73A9E1F452C250050ABA5 /* HRColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRColorPickerView.h; sourceTree = "<group>"; };
-		09D73A9F1F452C250050ABA5 /* HRColorPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRColorPickerView.m; sourceTree = "<group>"; };
-		09D73AA01F452C250050ABA5 /* HRColorPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRColorPickerViewController.h; sourceTree = "<group>"; };
-		09D73AA11F452C250050ABA5 /* HRColorPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRColorPickerViewController.m; sourceTree = "<group>"; };
-		09D73AA21F452C250050ABA5 /* HRColorUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRColorUtil.h; sourceTree = "<group>"; };
-		09D73AA31F452C250050ABA5 /* HRColorUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRColorUtil.m; sourceTree = "<group>"; };
+		09D73A8F1F452C250050ABA5 /* CYRLayoutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CYRLayoutManager.h; path = "../../../Desktop/2017工作文件夹/LFWordView/LFWordView/Third Party/CYRLayoutManager.h"; sourceTree = "<group>"; };
+		09D73A901F452C250050ABA5 /* CYRLayoutManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CYRLayoutManager.m; path = "../../../Desktop/2017工作文件夹/LFWordView/LFWordView/Third Party/CYRLayoutManager.m"; sourceTree = "<group>"; };
+		09D73A911F452C250050ABA5 /* CYRTextStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CYRTextStorage.h; path = "../../../Desktop/2017工作文件夹/LFWordView/LFWordView/Third Party/CYRTextStorage.h"; sourceTree = "<group>"; };
+		09D73A921F452C250050ABA5 /* CYRTextStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CYRTextStorage.m; path = "../../../Desktop/2017工作文件夹/LFWordView/LFWordView/Third Party/CYRTextStorage.m"; sourceTree = "<group>"; };
+		09D73A931F452C250050ABA5 /* CYRTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CYRTextView.h; path = "../../../Desktop/2017工作文件夹/LFWordView/LFWordView/Third Party/CYRTextView.h"; sourceTree = "<group>"; };
+		09D73A941F452C250050ABA5 /* CYRTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CYRTextView.m; path = "../../../Desktop/2017工作文件夹/LFWordView/LFWordView/Third Party/CYRTextView.m"; sourceTree = "<group>"; };
+		09D73A951F452C250050ABA5 /* CYRToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CYRToken.h; path = "../../../Desktop/2017工作文件夹/LFWordView/LFWordView/Third Party/CYRToken.h"; sourceTree = "<group>"; };
+		09D73A961F452C250050ABA5 /* CYRToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CYRToken.m; path = "../../../Desktop/2017工作文件夹/LFWordView/LFWordView/Third Party/CYRToken.m"; sourceTree = "<group>"; };
+		09D73A971F452C250050ABA5 /* HRBrightnessCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HRBrightnessCursor.h; path = "../../../Desktop/2017工作文件夹/LFWordView/LFWordView/Third Party/HRBrightnessCursor.h"; sourceTree = "<group>"; };
+		09D73A981F452C250050ABA5 /* HRBrightnessCursor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HRBrightnessCursor.m; path = "../../../Desktop/2017工作文件夹/LFWordView/LFWordView/Third Party/HRBrightnessCursor.m"; sourceTree = "<group>"; };
+		09D73A991F452C250050ABA5 /* HRCgUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HRCgUtil.h; path = "../../../Desktop/2017工作文件夹/LFWordView/LFWordView/Third Party/HRCgUtil.h"; sourceTree = "<group>"; };
+		09D73A9A1F452C250050ABA5 /* HRCgUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HRCgUtil.m; path = "../../../Desktop/2017工作文件夹/LFWordView/LFWordView/Third Party/HRCgUtil.m"; sourceTree = "<group>"; };
+		09D73A9B1F452C250050ABA5 /* HRColorCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HRColorCursor.h; path = "../../../Desktop/2017工作文件夹/LFWordView/LFWordView/Third Party/HRColorCursor.h"; sourceTree = "<group>"; };
+		09D73A9C1F452C250050ABA5 /* HRColorCursor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HRColorCursor.m; path = "../../../Desktop/2017工作文件夹/LFWordView/LFWordView/Third Party/HRColorCursor.m"; sourceTree = "<group>"; };
+		09D73A9D1F452C250050ABA5 /* HRColorPickerMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HRColorPickerMacros.h; path = "../../../Desktop/2017工作文件夹/LFWordView/LFWordView/Third Party/HRColorPickerMacros.h"; sourceTree = "<group>"; };
+		09D73A9E1F452C250050ABA5 /* HRColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HRColorPickerView.h; path = "../../../Desktop/2017工作文件夹/LFWordView/LFWordView/Third Party/HRColorPickerView.h"; sourceTree = "<group>"; };
+		09D73A9F1F452C250050ABA5 /* HRColorPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HRColorPickerView.m; path = "../../../Desktop/2017工作文件夹/LFWordView/LFWordView/Third Party/HRColorPickerView.m"; sourceTree = "<group>"; };
+		09D73AA01F452C250050ABA5 /* HRColorPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HRColorPickerViewController.h; path = "../../../Desktop/2017工作文件夹/LFWordView/LFWordView/Third Party/HRColorPickerViewController.h"; sourceTree = "<group>"; };
+		09D73AA11F452C250050ABA5 /* HRColorPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HRColorPickerViewController.m; path = "../../../Desktop/2017工作文件夹/LFWordView/LFWordView/Third Party/HRColorPickerViewController.m"; sourceTree = "<group>"; };
+		09D73AA21F452C250050ABA5 /* HRColorUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HRColorUtil.h; path = "../../../Desktop/2017工作文件夹/LFWordView/LFWordView/Third Party/HRColorUtil.h"; sourceTree = "<group>"; };
+		09D73AA31F452C250050ABA5 /* HRColorUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HRColorUtil.m; path = "../../../Desktop/2017工作文件夹/LFWordView/LFWordView/Third Party/HRColorUtil.m"; sourceTree = "<group>"; };
 		09D73AAF1F452CE90050ABA5 /* editor.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = editor.html; sourceTree = "<group>"; };
 		09D73AB01F452CE90050ABA5 /* ZSSRichTextEditor.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ZSSRichTextEditor.js; sourceTree = "<group>"; };
 		09D73AB11F452CE90050ABA5 /* jQuery.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jQuery.js; sourceTree = "<group>"; };
@@ -367,27 +375,6 @@
 			isa = PBXGroup;
 			children = (
 				09D73ABD1F452D880050ABA5 /* Views */,
-				09D73A8F1F452C250050ABA5 /* CYRLayoutManager.h */,
-				09D73A901F452C250050ABA5 /* CYRLayoutManager.m */,
-				09D73A911F452C250050ABA5 /* CYRTextStorage.h */,
-				09D73A921F452C250050ABA5 /* CYRTextStorage.m */,
-				09D73A931F452C250050ABA5 /* CYRTextView.h */,
-				09D73A941F452C250050ABA5 /* CYRTextView.m */,
-				09D73A951F452C250050ABA5 /* CYRToken.h */,
-				09D73A961F452C250050ABA5 /* CYRToken.m */,
-				09D73A971F452C250050ABA5 /* HRBrightnessCursor.h */,
-				09D73A981F452C250050ABA5 /* HRBrightnessCursor.m */,
-				09D73A991F452C250050ABA5 /* HRCgUtil.h */,
-				09D73A9A1F452C250050ABA5 /* HRCgUtil.m */,
-				09D73A9B1F452C250050ABA5 /* HRColorCursor.h */,
-				09D73A9C1F452C250050ABA5 /* HRColorCursor.m */,
-				09D73A9D1F452C250050ABA5 /* HRColorPickerMacros.h */,
-				09D73A9E1F452C250050ABA5 /* HRColorPickerView.h */,
-				09D73A9F1F452C250050ABA5 /* HRColorPickerView.m */,
-				09D73AA01F452C250050ABA5 /* HRColorPickerViewController.h */,
-				09D73AA11F452C250050ABA5 /* HRColorPickerViewController.m */,
-				09D73AA21F452C250050ABA5 /* HRColorUtil.h */,
-				09D73AA31F452C250050ABA5 /* HRColorUtil.m */,
 			);
 			path = "Third Party";
 			sourceTree = "<group>";
@@ -416,6 +403,11 @@
 				09C37F381F4D69F1003234C1 /* YFSetFontView.m */,
 				09C37F2B1F4D0B26003234C1 /* ZSSTextView.h */,
 				09C37F2C1F4D0B26003234C1 /* ZSSTextView.m */,
+				090275A31F59061A00956EDF /* QLKActionSheetView.h */,
+				090275A41F59061A00956EDF /* QLKActionSheetView.m */,
+				090275A51F59061A00956EDF /* QLKActionSheetView.xib */,
+				093641A51F595F9E006EE59C /* HideView.h */,
+				093641A61F595F9E006EE59C /* HideView.m */,
 			);
 			path = EditorResource;
 			sourceTree = "<group>";
@@ -423,6 +415,27 @@
 		09D73ABD1F452D880050ABA5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				09D73A8F1F452C250050ABA5 /* CYRLayoutManager.h */,
+				09D73A901F452C250050ABA5 /* CYRLayoutManager.m */,
+				09D73A911F452C250050ABA5 /* CYRTextStorage.h */,
+				09D73A921F452C250050ABA5 /* CYRTextStorage.m */,
+				09D73A931F452C250050ABA5 /* CYRTextView.h */,
+				09D73A941F452C250050ABA5 /* CYRTextView.m */,
+				09D73A951F452C250050ABA5 /* CYRToken.h */,
+				09D73A961F452C250050ABA5 /* CYRToken.m */,
+				09D73A971F452C250050ABA5 /* HRBrightnessCursor.h */,
+				09D73A981F452C250050ABA5 /* HRBrightnessCursor.m */,
+				09D73A991F452C250050ABA5 /* HRCgUtil.h */,
+				09D73A9A1F452C250050ABA5 /* HRCgUtil.m */,
+				09D73A9B1F452C250050ABA5 /* HRColorCursor.h */,
+				09D73A9C1F452C250050ABA5 /* HRColorCursor.m */,
+				09D73A9D1F452C250050ABA5 /* HRColorPickerMacros.h */,
+				09D73A9E1F452C250050ABA5 /* HRColorPickerView.h */,
+				09D73A9F1F452C250050ABA5 /* HRColorPickerView.m */,
+				09D73AA01F452C250050ABA5 /* HRColorPickerViewController.h */,
+				09D73AA11F452C250050ABA5 /* HRColorPickerViewController.m */,
+				09D73AA21F452C250050ABA5 /* HRColorUtil.h */,
+				09D73AA31F452C250050ABA5 /* HRColorUtil.m */,
 			);
 			name = Views;
 			path = "../../../../../Downloads/ZSSRichTextEditor-master-3/ZSSRichTextEditor";
@@ -542,6 +555,7 @@
 				09D73AB51F452CE90050ABA5 /* jQuery.js in Resources */,
 				09B8D1E31F3AEEEA008501AA /* text-bold-active@2x.png in Resources */,
 				09B8D1951F3ADD1E008501AA /* LaunchScreen.storyboard in Resources */,
+				090275A71F59061A00956EDF /* QLKActionSheetView.xib in Resources */,
 				09B8D1E01F3AEEEA008501AA /* img@2x.png in Resources */,
 				09B8D1921F3ADD1E008501AA /* Assets.xcassets in Resources */,
 				09B8D1EF1F3AEEEA008501AA /* text-underline-active@2x.png in Resources */,
@@ -587,6 +601,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				093641A71F595F9E006EE59C /* HideView.m in Sources */,
 				09D73AA81F452C250050ABA5 /* HRBrightnessCursor.m in Sources */,
 				09C37F531F4D70F2003234C1 /* MASCompositeConstraint.m in Sources */,
 				09C37F5B1F4D70F2003234C1 /* View+MASAdditions.m in Sources */,
@@ -604,6 +619,7 @@
 				09C37F581F4D70F2003234C1 /* MASViewConstraint.m in Sources */,
 				09D73AAB1F452C250050ABA5 /* HRColorPickerView.m in Sources */,
 				09D73AA51F452C250050ABA5 /* CYRTextStorage.m in Sources */,
+				090275A61F59061A00956EDF /* QLKActionSheetView.m in Sources */,
 				09D73AA41F452C250050ABA5 /* CYRLayoutManager.m in Sources */,
 				09C37F571F4D70F2003234C1 /* MASViewAttribute.m in Sources */,
 				09C37F2D1F4D0B26003234C1 /* ZSSBarButtonItem.m in Sources */,
@@ -772,6 +788,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = W4M3J6TJMK;
 				INFOPLIST_FILE = LFWordView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yousails.chrenai;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -784,6 +801,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = W4M3J6TJMK;
 				INFOPLIST_FILE = LFWordView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yousails.chrenai;
 				PRODUCT_NAME = "$(TARGET_NAME)";

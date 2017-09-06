@@ -474,6 +474,20 @@ zss_editor.prepareInsert = function() {
     zss_editor.backuprange();
 }
 
+zss_editor.insertLocalImage = function(imageNodeIdentifier, localImageUrl) {
+    var space = '&nbsp';
+    var progressIdentifier = this.getImageProgressIdentifier(imageNodeIdentifier);
+    var imageContainerIdentifier = this.getImageContainerIdentifier(imageNodeIdentifier);
+    var imgContainerStart = '<span id="' + imageContainerIdentifier+'" class="img_container" contenteditable="false" data-failed="Tap to try again!">';
+    var imgContainerEnd = '</span>';
+    var progress = '<progress id="' + progressIdentifier+'" value=0  class="wp_media_indicator"  contenteditable="false"></progress>';
+    var image = '<img data-wpid="' + imageNodeIdentifier + '" src="' + localImageUrl + '" alt="" />';
+    var html = imgContainerStart + progress+image + imgContainerEnd;
+    html = space + html + space;
+    zss_editor.insertHTML(html);
+    zss_editor.enabledEditingItems();
+};
+
 zss_editor.insertImage = function(url, alt) {
     zss_editor.restorerange();
     var html = '<img src="'+url+'" alt="'+alt+'" />';
@@ -649,10 +663,7 @@ zss_editor.enabledEditingItems = function(e) {
                 items.push('image-alt:'+t.attr('alt'));
             }
             
-        } else {
-            zss_editor.currentEditingImage = null;
         }
-        
     }
     
     if (items.length > 0) {

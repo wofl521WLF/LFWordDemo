@@ -14,7 +14,9 @@
 #import "ZSSTextView.h"
 #import "YFSetFontView.h"
 #import "YFSetColorView.h"
-
+#import "QLKActionSheetView.h"
+#import <Photos/Photos.h>
+#import "HideView.h"
 #define WS(weakSelf)  __weak __typeof(&*self)weakSelf = self;
 
 
@@ -212,7 +214,8 @@ static Class hackishFixClass = Nil;
 @property (nonatomic, strong) YFSetFontView *fontView;//字体选择view
 @property (nonatomic, strong) YFSetColorView *colorView;//颜色选择view
 @property (nonatomic, assign) CGFloat keyboardSpacingHeight;//获取键盘高度，便于处理颜色选择UI和字体选择UI
-
+@property (strong,nonatomic) QLKActionSheetView *actionSheetView;//图片action
+@property (strong,nonatomic) HideView *transparentView;//黑色蒙层
 /*
  *  Method for getting a version of the html without quotes
  */
@@ -263,10 +266,6 @@ static CGFloat kDefaultScale = 0.5;
 - (YFSetColorView *)colorView{
     if (_colorView == nil) {
         _colorView = [YFSetColorView getColorView];
-        // Save the selection location
-        [self.editorView stringByEvaluatingJavaScriptFromString:@"zss_editor.prepareInsert();"];
-        NSString *trigger = [NSString stringWithFormat:@"zss_editor.setTextColor(\"%@\");",@"#444444"];
-        [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
         WS(weakSelf)
         _colorView.styleBlock = ^(NSString *colorHex) {
             [weakSelf.colorView removeFromSuperview];
@@ -277,7 +276,26 @@ static CGFloat kDefaultScale = 0.5;
     }
     return _colorView;
 }
+#pragma mark --- 懒加载一些控件
+- (HideView *)transparentView{
+    if (_transparentView == nil) {
+        _transparentView = [HideView getHideViewFromWindow:self.view.window];
+        _transparentView.isHide = NO;
+        [_transparentView addSubview:self.actionSheetView];
+    }
+    return _transparentView;
+}
 
+- (QLKActionSheetView *)actionSheetView{
+    if (_actionSheetView == nil) {
+        _actionSheetView = [QLKActionSheetView getQlkActionSheetView];
+        WS(weakSelf)
+        _actionSheetView.actionSheetViewBlock = ^(NSInteger index){
+            [weakSelf doActionBtnClick:index];
+        };
+    }
+    return _actionSheetView;
+}
 
 #pragma mark - View Did Load Section
 - (void)viewDidLoad {
@@ -364,15 +382,28 @@ static CGFloat kDefaultScale = 0.5;
 
 - (void)createEditorViewWithFrame:(CGRect)frame {
     
+//    self.editorView = [[UIWebView alloc] initWithFrame:frame];
+//    self.editorView.delegate = self;
+//    self.editorView.hidesInputAccessoryView = YES;
+//    self.editorView.keyboardDisplayRequiresUserAction = NO;
+//    self.editorView.scalesPageToFit = YES;
+//    self.editorView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+//    self.editorView.dataDetectorTypes = UIDataDetectorTypeNone;
+//    self.editorView.scrollView.bounces = NO;
+//    self.editorView.backgroundColor = [UIColor whiteColor];
     self.editorView = [[UIWebView alloc] initWithFrame:frame];
+    self.editorView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.editorView.delegate = self;
+    self.editorView.scalesPageToFit = YES;
+    self.editorView.dataDetectorTypes = UIDataDetectorTypeNone;
+    self.editorView.backgroundColor = [UIColor clearColor];
+    self.editorView.opaque = NO;
+    self.editorView.scrollView.bounces = NO;
     self.editorView.hidesInputAccessoryView = YES;
     self.editorView.keyboardDisplayRequiresUserAction = NO;
-    self.editorView.scalesPageToFit = YES;
-    self.editorView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-    self.editorView.dataDetectorTypes = UIDataDetectorTypeNone;
-    self.editorView.scrollView.bounces = NO;
-    self.editorView.backgroundColor = [UIColor whiteColor];
+    self.editorView.scrollView.bounces = YES;
+    self.editorView.allowsInlineMediaPlayback = YES;
+    self.editorView.scrollView.keyboardDismissMode =  UIScrollViewKeyboardDismissModeOnDrag;
     [self.view addSubview:self.editorView];
     
 }
@@ -489,7 +520,9 @@ static CGFloat kDefaultScale = 0.5;
         }break;
         case 4:
         {
-
+             [self.editorView stringByEvaluatingJavaScriptFromString:@"zss_editor.prepareInsert();"];
+             self.transparentView.hidden = NO;
+            [self dismissKeyboard];
             break;
         }
         default:
@@ -1471,6 +1504,84 @@ static CGFloat kDefaultScale = 0.5;
     
 }
 
+- (void)doActionBtnClick:(NSInteger)btnIndex{
+    switch (btnIndex) {
+        case 0:
+        {
+            [self addCarema];//相机
+        }
+            break;
+        case 1:{
+            [self openPicLibrary];//相册
+        }
+            
+            break;
+        case 2:{
+            self.transparentView.hidden = YES;
+            return;
+        }
+            break;
+        default:
+            break;
+    }
+     self.transparentView.hidden = YES;
+}
+
+/**
+ *  调取系统照相机
+ */
+-(void)addCarema{
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+         self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        [self performSelector:@selector(presentCameraView:) withObject:self.imagePicker afterDelay:1.0f];
+        
+    }else{
+        NSLog(@"请开启相册权限");
+    }
+}
+
+/**
+ *  打开相机
+ */
+-(void)presentCameraView:(UIImagePickerController*)imagePickerController{
+    WS(weakSelf)
+    [self presentViewController:imagePickerController animated:YES completion:^{
+        [weakSelf checkAVCapDevice:imagePickerController];
+    }];
+}
+/**
+ *  打开相册
+ */
+-(void)openPicLibrary{
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+         self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        [self presentViewController:self.imagePicker animated:YES completion:nil];
+    }
+}
+
+//检测相机权限
+-(void)checkAVCapDevice:(UIImagePickerController *)picker{
+    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    if (authStatus == AVAuthorizationStatusNotDetermined)
+    {
+        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+            if (granted == NO) {
+                [picker dismissViewControllerAnimated:YES completion:^{
+                    NSLog(@"用户拒绝了相机访问权限");
+                }];
+            }
+        }];
+    }
+    else if (authStatus == AVAuthorizationStatusDenied)
+    {
+        NSString *title = [NSString stringWithFormat:@"请在iPhone的“设置”选项中，允许app访问你的手机相机"];
+        if ([self isIpad]) {
+            title = [NSString stringWithFormat:@"请在iPad的“设置”选项中，允许app访问你ipad的相机"];
+        }
+        NSLog(@"%@",title);
+    }
+}
+
 - (void)showInsertImageDialogWithLink:(NSString *)url alt:(NSString *)alt {
     
     // Insert Button Title
@@ -1614,6 +1725,12 @@ static CGFloat kDefaultScale = 0.5;
         [self.alertView show];
     }
     
+}
+
+- (void)insertLocalImage:(NSString*)url uniqueId:(NSString*)uniqueId
+{
+    NSString *trigger = [NSString stringWithFormat:@"ZSSEditor.insertLocalImage(\"%@\", \"%@\");", uniqueId, url];
+    [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
 }
 
 - (void)insertImage:(NSString *)url alt:(NSString *)alt {
@@ -1855,31 +1972,9 @@ static CGFloat kDefaultScale = 0.5;
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *, id> *)info{
 
-    UIImage *selectedImage = info[UIImagePickerControllerEditedImage]?:info[UIImagePickerControllerOriginalImage];
-    
-    //Scale the image
-    CGSize targetSize = CGSizeMake(selectedImage.size.width * self.selectedImageScale, selectedImage.size.height * self.selectedImageScale);
-    UIGraphicsBeginImageContext(targetSize);
-    [selectedImage drawInRect:CGRectMake(0,0,targetSize.width,targetSize.height)];
-    UIImage* scaledImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-
-    //Compress the image, as it is going to be encoded rather than linked
-    NSData *scaledImageData = UIImageJPEGRepresentation(scaledImage, kJPEGCompression);
-    
-    //Encode the image data as a base64 string
-    NSString *imageBase64String = [scaledImageData base64EncodedStringWithOptions:0];
-    
-    //Decide if we have to insert or update
-    if (!self.imageBase64String) {
-        [self insertImageBase64String:imageBase64String alt:self.selectedImageAlt];
-    } else {
-        [self updateImageBase64String:imageBase64String alt:self.selectedImageAlt];
-    }
-    
-    self.imageBase64String = imageBase64String;
-
-    //Dismiss the Image Picker
+    NSString *path = [info objectForKey:@"UIImagePickerControllerReferenceURL"];
+    NSString *imageID = [[NSUUID UUID] UUIDString];
+    [self insertImage:@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1504592093535&di=25f2bde6a59bc22768720236845bb982&imgtype=0&src=http%3A%2F%2Fimg1.gtimg.com%2F10%2F1076%2F107653%2F10765336_1200x1000_0.jpg" alt:self.selectedImageAlt];
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
