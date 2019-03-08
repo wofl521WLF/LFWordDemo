@@ -17,7 +17,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self testGitByLis];
     // Do any additional setup after loading the view, typically from a nib.
+}
+
+- (void)testGitByLis{'
+    NSLog(@"我是李四修改的代码");
 }
 
 #pragma mark --- 新增
