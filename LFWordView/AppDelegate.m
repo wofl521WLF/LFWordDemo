@@ -16,6 +16,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    NSLog(@"哈哈哈哈哈哈哈");
     // Override point for customization after application launch.
     NSLog(@"测试git 操作！");
     
