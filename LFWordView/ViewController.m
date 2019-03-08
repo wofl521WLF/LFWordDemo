@@ -17,7 +17,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self testWangwuGit];
     // Do any additional setup after loading the view, typically from a nib.
+}
+
+- (void)testWangwuGit{
+    NSLog(@"我是王五，我今天回来了，操作我个人的分支代码。");
 }
 
 #pragma mark --- 新增
