@@ -1,0 +1,9 @@
+platform :ios, '8.0'
+use_frameworks!
+target 'TestCoobjc' do
+pod 'cokit','~> 1.0.0'
+pod 'coobjc','~> 1.0.1'
+pod 'AFNetworking','~> 3.2.1'
+pod 'MJExtension','~> 3.0.15.1'
+pod 'Reachability','~> 3.2'
+end

@@ -1,0 +1,6 @@
+framework module Pods_TestCoobjc {
+  umbrella header "Pods-TestCoobjc-umbrella.h"
+
+  export *
+  module * { export * }
+}

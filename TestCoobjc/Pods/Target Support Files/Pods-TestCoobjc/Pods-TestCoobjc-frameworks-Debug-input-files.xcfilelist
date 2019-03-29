@@ -1,0 +1,7 @@
+${PODS_ROOT}/Target Support Files/Pods-TestCoobjc/Pods-TestCoobjc-frameworks.sh
+${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework
+${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework
+${BUILT_PRODUCTS_DIR}/Reachability/Reachability.framework
+${BUILT_PRODUCTS_DIR}/cokit/cokit.framework
+${BUILT_PRODUCTS_DIR}/coobjc/coobjc.framework
+${BUILT_PRODUCTS_DIR}/fishhook/fishhook.framework
