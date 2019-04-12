@@ -24,7 +24,6 @@
 		091040E32236382000C4180C /* QLKDeviceIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 091040E12236382000C4180C /* QLKDeviceIdentifier.m */; };
 		091040E7223638DB00C4180C /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 091040E5223638DB00C4180C /* SFHFKeychainUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		091040EA223642BA00C4180C /* CHBaseResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 091040E9223642BA00C4180C /* CHBaseResponseModel.m */; };
-		095AF5F5224DF7E800BAD865 /* LFBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 095AF5F4224DF7E800BAD865 /* LFBaseNavigationController.m */; };
 		0963598B224B540A00928489 /* TestImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0963598A224B540A00928489 /* TestImageView.m */; };
 		7E0FC9BE1D02A3CEBE642DED /* Pods_TestCoobjc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0778781997B33F1914185139 /* Pods_TestCoobjc.framework */; };
 /* End PBXBuildFile section */
@@ -82,8 +81,6 @@
 		091040E6223638DB00C4180C /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHFKeychainUtils.h; sourceTree = "<group>"; };
 		091040E8223642BA00C4180C /* CHBaseResponseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHBaseResponseModel.h; sourceTree = "<group>"; };
 		091040E9223642BA00C4180C /* CHBaseResponseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHBaseResponseModel.m; sourceTree = "<group>"; };
-		095AF5F3224DF7E800BAD865 /* LFBaseNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LFBaseNavigationController.h; sourceTree = "<group>"; };
-		095AF5F4224DF7E800BAD865 /* LFBaseNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFBaseNavigationController.m; sourceTree = "<group>"; };
 		09635989224B540A00928489 /* TestImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestImageView.h; sourceTree = "<group>"; };
 		0963598A224B540A00928489 /* TestImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestImageView.m; sourceTree = "<group>"; };
 		5F2E8644F4E42EA6F83D378E /* Pods-TestCoobjc.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestCoobjc.release.xcconfig"; path = "Target Support Files/Pods-TestCoobjc/Pods-TestCoobjc.release.xcconfig"; sourceTree = "<group>"; };
@@ -178,7 +175,6 @@
 		091040CB2232656B00C4180C /* APITools */ = {
 			isa = PBXGroup;
 			children = (
-				095AF5F2224DF7B900BAD865 /* BaseCommon */,
 				091040CC223275EC00C4180C /* BaseAPI */,
 			);
 			path = APITools;
@@ -231,15 +227,6 @@
 				091040DF2236303D00C4180C /* LFGloabelConfigTools.m */,
 			);
 			path = HttpTools;
-			sourceTree = "<group>";
-		};
-		095AF5F2224DF7B900BAD865 /* BaseCommon */ = {
-			isa = PBXGroup;
-			children = (
-				095AF5F3224DF7E800BAD865 /* LFBaseNavigationController.h */,
-				095AF5F4224DF7E800BAD865 /* LFBaseNavigationController.m */,
-			);
-			path = BaseCommon;
 			sourceTree = "<group>";
 		};
 		4E1141CA3C266A68347691CC /* Frameworks */ = {
@@ -443,7 +430,6 @@
 				091040CF2232765E00C4180C /* CHBaseAPIManagerTools.m in Sources */,
 				0963598B224B540A00928489 /* TestImageView.m in Sources */,
 				0910409822311AE400C4180C /* AppDelegate.m in Sources */,
-				095AF5F5224DF7E800BAD865 /* LFBaseNavigationController.m in Sources */,
 				091040E02236303D00C4180C /* LFGloabelConfigTools.m in Sources */,
 				091040EA223642BA00C4180C /* CHBaseResponseModel.m in Sources */,
 				091040DD22362F4D00C4180C /* CHBaseRequestModel.m in Sources */,
